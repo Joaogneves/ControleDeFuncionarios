@@ -2,6 +2,7 @@ package com.nevesDev.ControleDeFuncionarios.model.employee;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nevesDev.ControleDeFuncionarios.model.workhour.Workhour;
+import com.nevesDev.ControleDeFuncionarios.model.workmonth.Workmonth;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -15,29 +16,36 @@ public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-
+    @Column(nullable = false)
     private String firstName;
+    @Column(nullable = false)
     private String lastName;
-
+    @Column(nullable = false, unique = true)
     private String cpf;
+    @Column(nullable = false)
     private String cnpj;
-
+    @Column(nullable = false)
     private String funcao;
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL ,mappedBy = "employee", fetch = FetchType.EAGER, orphanRemoval = true)
     private List<Workhour> workhours;
 
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL ,mappedBy = "employee", fetch = FetchType.EAGER, orphanRemoval = true)
+    private List<Workmonth> workmonths;
+
     public Employee(){}
 
-    public Employee(UUID id, String firstName, String lastName, String cpf, String cnpj, String função, List<Workhour> workhours) {
+    public Employee(UUID id, String firstName, String lastName, String cpf, String cnpj, String funcao, List<Workhour> workhours, List<Workmonth> workmonths) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.cpf = cpf;
         this.cnpj = cnpj;
-        this.funcao = função;
+        this.funcao = funcao;
         this.workhours = workhours;
+        this.workmonths = workmonths;
     }
 
     public UUID getId() {
@@ -94,6 +102,14 @@ public class Employee {
 
     public void setWorkhours(List<Workhour> workhours) {
         this.workhours = workhours;
+    }
+
+    public List<Workmonth> getWorkmonths() {
+        return workmonths;
+    }
+
+    public void setWorkmonths(List<Workmonth> workmonths) {
+        this.workmonths = workmonths;
     }
 
     @Override
