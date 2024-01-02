@@ -35,6 +35,11 @@ public class WorkhourController {
         return ResponseEntity.ok().body(service.getById(id));
     }
 
+    @GetMapping(value = "employee/{id}")
+    public ResponseEntity<List<Workhour>> getAllByEmployee(@PathVariable UUID id) {
+        return ResponseEntity.ok().body(service.getAllByEmployee(id));
+    }
+
 
 
 }

@@ -31,4 +31,8 @@ public class WorkhourService {
     public Workhour getById(UUID id) {
         return repository.findById(id).orElseThrow();
     }
+
+    public List<Workhour> getAllByEmployee(UUID id) {
+        return repository.findAllByEmployeeId(id);
+    }
 }
