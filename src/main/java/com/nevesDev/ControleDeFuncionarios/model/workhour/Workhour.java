@@ -27,6 +27,8 @@ public class Workhour {
     @ManyToOne
     private Employee employee;
 
+    public Workhour(){}
+
     public Workhour(UUID id, LocalDate workDay, LocalTime entry, LocalTime leave, LocalTime breakInit, LocalTime breakEnd, Employee employee) {
         this.id = id;
         this.workDay = workDay;

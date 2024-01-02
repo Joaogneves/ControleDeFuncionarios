@@ -1,5 +1,6 @@
 package com.nevesDev.ControleDeFuncionarios.model.employee;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nevesDev.ControleDeFuncionarios.model.workhour.Workhour;
 import jakarta.persistence.*;
 
@@ -21,10 +22,13 @@ public class Employee {
     private String cpf;
     private String cnpj;
 
-    private String função;
+    private String funcao;
 
-    @OneToMany
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL ,mappedBy = "employee", fetch = FetchType.EAGER, orphanRemoval = true)
     private List<Workhour> workhours;
+
+    public Employee(){}
 
     public Employee(UUID id, String firstName, String lastName, String cpf, String cnpj, String função, List<Workhour> workhours) {
         this.id = id;
@@ -32,7 +36,7 @@ public class Employee {
         this.lastName = lastName;
         this.cpf = cpf;
         this.cnpj = cnpj;
-        this.função = função;
+        this.funcao = função;
         this.workhours = workhours;
     }
 
@@ -76,12 +80,12 @@ public class Employee {
         this.cnpj = cnpj;
     }
 
-    public String getFunção() {
-        return função;
+    public String getFuncao() {
+        return funcao;
     }
 
-    public void setFunção(String função) {
-        this.função = função;
+    public void setFuncao(String funcao) {
+        this.funcao = funcao;
     }
 
     public List<Workhour> getWorkhours() {
