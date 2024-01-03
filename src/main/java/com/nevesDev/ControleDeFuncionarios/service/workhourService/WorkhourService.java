@@ -10,9 +10,7 @@ import com.nevesDev.ControleDeFuncionarios.service.employeeService.EmployeeServi
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.Duration;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -52,15 +50,15 @@ public class WorkhourService {
         for(Workhour h : hours) {
             if(h.getWorkDay().getMonth().toString().equals(month)) {
                 if(!h.getItsHolliday()) {
-                    horasNormais += ChronoUnit.MINUTES.between(h.getEntry(), h.getBreakInit());
-                    horasNormais += ChronoUnit.MINUTES.between(h.getBreakEnd(), h.getLeave());
+                    horasNormais += ChronoUnit.HOURS.between(h.getEntry(), h.getBreakInit());
+                    horasNormais += ChronoUnit.HOURS.between(h.getBreakEnd(), h.getLeave());
                     if(h.getStartExtra() != null && h.getEndExtra() != null) {
-                        horasExtra50 += ChronoUnit.MINUTES.between(h.getStartExtra(), h.getEndExtra());
+                        horasExtra50 += ChronoUnit.HOURS.between(h.getStartExtra(), h.getEndExtra());
                     }
                 }
                 if(h.getItsHolliday()) {
-                    horasExtra100 += ChronoUnit.MINUTES.between(h.getEntry(), h.getBreakInit());
-                    horasExtra100 += ChronoUnit.MINUTES.between(h.getBreakEnd(), h.getLeave());
+                    horasExtra100 += ChronoUnit.HOURS.between(h.getEntry(), h.getBreakInit());
+                    horasExtra100 += ChronoUnit.HOURS.between(h.getBreakEnd(), h.getLeave());
                 }
             }
         }
