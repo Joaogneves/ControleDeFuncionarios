@@ -7,6 +7,5 @@ import java.util.List;
 import java.util.UUID;
 
 public interface WorkhourRepository extends JpaRepository<Workhour, UUID> {
-
     List<Workhour> findAllByEmployeeId(UUID id);
 }

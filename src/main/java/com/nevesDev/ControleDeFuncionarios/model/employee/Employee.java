@@ -28,7 +28,7 @@ public class Employee {
     private String funcao;
 
     @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL ,mappedBy = "employee", fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL ,mappedBy = "employee", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Workhour> workhours;
 
     @JsonIgnore

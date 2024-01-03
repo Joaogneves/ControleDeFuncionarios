@@ -1,6 +1,8 @@
 package com.nevesDev.ControleDeFuncionarios.controller.workhourController;
 
+import com.nevesDev.ControleDeFuncionarios.model.employee.Employee;
 import com.nevesDev.ControleDeFuncionarios.model.workhour.Workhour;
+import com.nevesDev.ControleDeFuncionarios.model.workhour.WorkhourDto;
 import com.nevesDev.ControleDeFuncionarios.model.workmonth.Workmonth;
 import com.nevesDev.ControleDeFuncionarios.service.workhourService.WorkhourService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +48,15 @@ public class WorkhourController {
         return ResponseEntity.ok().body(service.getHours(id, month));
     }
 
+    @PutMapping
+    public ResponseEntity<Workhour> update(@RequestBody WorkhourDto dto) {
+        return ResponseEntity.ok().body(service.update(dto));
+    }
 
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Workhour> delete(@PathVariable UUID id) {
+        service.delete(id);
+        return ResponseEntity.notFound().build();
+    }
 
 }

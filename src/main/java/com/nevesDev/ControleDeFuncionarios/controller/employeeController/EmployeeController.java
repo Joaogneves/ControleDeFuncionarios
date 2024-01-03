@@ -1,6 +1,7 @@
 package com.nevesDev.ControleDeFuncionarios.controller.employeeController;
 
 import com.nevesDev.ControleDeFuncionarios.model.employee.Employee;
+import com.nevesDev.ControleDeFuncionarios.model.employee.EmployeeDto;
 import com.nevesDev.ControleDeFuncionarios.repository.employeeRepository.EmployeeRepository;
 import com.nevesDev.ControleDeFuncionarios.service.employeeService.EmployeeService;
 import org.hibernate.mapping.Any;
@@ -37,4 +38,14 @@ public class EmployeeController {
         return ResponseEntity.ok().body(service.getById(id));
     }
 
+    @PutMapping()
+    public ResponseEntity<Employee> update(@RequestBody EmployeeDto dto) {
+        return ResponseEntity.ok().body(service.update(dto));
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Employee> delete(@PathVariable UUID id) {
+        service.delete(id);
+        return ResponseEntity.notFound().build();
+    }
 }

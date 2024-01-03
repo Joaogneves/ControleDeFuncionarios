@@ -2,6 +2,7 @@ package com.nevesDev.ControleDeFuncionarios.service.workhourService;
 
 import com.nevesDev.ControleDeFuncionarios.model.employee.Employee;
 import com.nevesDev.ControleDeFuncionarios.model.workhour.Workhour;
+import com.nevesDev.ControleDeFuncionarios.model.workhour.WorkhourDto;
 import com.nevesDev.ControleDeFuncionarios.model.workmonth.Workmonth;
 import com.nevesDev.ControleDeFuncionarios.repository.employeeRepository.EmployeeRepository;
 import com.nevesDev.ControleDeFuncionarios.repository.workhourRepository.WorkhourRepository;
@@ -67,4 +68,21 @@ public class WorkhourService {
         workmonthRepository.save(workmonth);
         return workmonth;
     }
+
+    public Workhour update(WorkhourDto dto) {
+        Workhour workhour = repository.findById(dto.id()).orElseThrow();
+        workhour.setWorkDay(dto.workDay());
+        workhour.setEntry(dto.entry());
+        workhour.setLeave(dto.leave());
+        workhour.setBreakInit(dto.breakInit());
+        workhour.setBreakEnd(dto.breakEnd());
+        workhour.setStartExtra(dto.startExtra());
+        workhour.setEndExtra(dto.endExtra());
+        workhour.setItsHolliday(dto.itsHolliday());
+        return workhour;
+    }
+    public void delete(UUID id) {
+        repository.deleteById(id);
+    }
+
 }
