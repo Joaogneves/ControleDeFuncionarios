@@ -48,6 +48,12 @@ public class WorkhourController {
         return ResponseEntity.ok().body(service.getHours(id, month));
     }
 
+    @GetMapping(value = "endmonth")
+    public ResponseEntity<List<Workmonth>> endMonthForAll(@RequestParam String month) {
+        return ResponseEntity.ok().body(service.getAllHours(month));
+    }
+
+
     @PutMapping
     public ResponseEntity<Workhour> update(@RequestBody WorkhourDto dto) {
         return ResponseEntity.ok().body(service.update(dto));
