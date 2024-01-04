@@ -1,7 +1,7 @@
-package com.nevesDev.ControleDeFuncionarios.controller.workmontController;
+package com.nevesDev.ControleDeFuncionarios.controller.workmonthController;
 
 import com.nevesDev.ControleDeFuncionarios.model.workmonth.Workmonth;
-import com.nevesDev.ControleDeFuncionarios.service.workhourService.WorkhourService;
+import com.nevesDev.ControleDeFuncionarios.model.workmonth.WorkmonthDtoResponse;
 import com.nevesDev.ControleDeFuncionarios.service.workmonth.WorkMonthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +18,7 @@ public class WorkmonthController {
     private WorkMonthService service;
 
     @GetMapping
-    public ResponseEntity<List<Workmonth>> findAllByEmployee(@RequestParam UUID employeeId) {
+    public ResponseEntity<List<WorkmonthDtoResponse>> findAllByEmployee(@RequestParam UUID employeeId) {
         return ResponseEntity.ok().body(service.findAllByEmployee(employeeId));
     }
 
