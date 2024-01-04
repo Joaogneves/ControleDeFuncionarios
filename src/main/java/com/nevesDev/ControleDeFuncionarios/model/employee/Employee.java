@@ -32,7 +32,7 @@ public class Employee {
     private List<Workhour> workhours;
 
     @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL ,mappedBy = "employee", fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL ,mappedBy = "employee", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Workmonth> workmonths;
 
     public Employee(){}

@@ -20,6 +20,8 @@ public class Workmonth {
     @ManyToOne
     private Employee employee;
 
+    public Workmonth() {}
+
     public Workmonth(long normalHour, long extraHour50, long extraHour100, Employee employee) {
         this.normalHour = normalHour;
         this.extraHour50 = extraHour50;
