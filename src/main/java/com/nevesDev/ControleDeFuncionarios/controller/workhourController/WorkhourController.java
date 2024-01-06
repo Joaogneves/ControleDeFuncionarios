@@ -16,6 +16,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/api/workhour")
+@CrossOrigin("*")
 public class WorkhourController {
 
     @Autowired

@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nevesDev.ControleDeFuncionarios.model.workhour.Workhour;
 import com.nevesDev.ControleDeFuncionarios.model.workmonth.Workmonth;
 import jakarta.persistence.*;
+import org.hibernate.validator.constraints.br.CNPJ;
+import org.hibernate.validator.constraints.br.CPF;
 
 import java.util.List;
 import java.util.Objects;
@@ -20,12 +22,17 @@ public class Employee {
     private String firstName;
     @Column(nullable = false)
     private String lastName;
+    @CPF
     @Column(nullable = false, unique = true)
     private String cpf;
+    @CNPJ
     @Column(nullable = false)
     private String cnpj;
     @Column(nullable = false)
     private String funcao;
+
+    @Column(nullable = false)
+    private String workPlace;
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL ,mappedBy = "employee", fetch = FetchType.LAZY, orphanRemoval = true)
@@ -37,7 +44,17 @@ public class Employee {
 
     public Employee(){}
 
-    public Employee(UUID id, String firstName, String lastName, String cpf, String cnpj, String funcao, List<Workhour> workhours, List<Workmonth> workmonths) {
+    public Employee(EmployeeDto dto) {
+        this.id = dto.id();
+        this.firstName = dto.firstName();
+        this.lastName = dto.lastName();
+        this.cpf = dto.cpf();
+        this.cnpj = dto.cnpj();
+        this.funcao = dto.funcao();
+        this.workPlace = dto.workPlace();
+    }
+
+    public Employee(UUID id, String firstName, String lastName, String cpf, String cnpj, String funcao, List<Workhour> workhours, List<Workmonth> workmonths, String workPlace) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -46,6 +63,7 @@ public class Employee {
         this.funcao = funcao;
         this.workhours = workhours;
         this.workmonths = workmonths;
+        this.workPlace = workPlace;
     }
 
     public UUID getId() {
@@ -110,6 +128,14 @@ public class Employee {
 
     public void setWorkmonths(List<Workmonth> workmonths) {
         this.workmonths = workmonths;
+    }
+
+    public String getWorkPlace() {
+        return workPlace;
+    }
+
+    public void setWorkPlace(String workPlace) {
+        this.workPlace = workPlace;
     }
 
     @Override

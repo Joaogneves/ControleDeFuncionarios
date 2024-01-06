@@ -16,6 +16,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/api/employee")
+@CrossOrigin("*")
 public class EmployeeController {
 
     @Autowired
@@ -47,5 +48,11 @@ public class EmployeeController {
     public ResponseEntity<Employee> delete(@PathVariable UUID id) {
         service.delete(id);
         return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping(value = "/search")
+    public ResponseEntity<List<Employee>> getAllByWorkplace(@RequestParam String workplace) {
+        System.out.println(workplace);
+        return ResponseEntity.ok().body(service.getByWorkplace(workplace));
     }
 }
