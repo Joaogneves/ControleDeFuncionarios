@@ -4,7 +4,6 @@ import com.nevesDev.ControleDeFuncionarios.model.employee.Employee;
 import com.nevesDev.ControleDeFuncionarios.model.workhour.Workhour;
 import com.nevesDev.ControleDeFuncionarios.model.workhour.WorkhourDto;
 import com.nevesDev.ControleDeFuncionarios.model.workmonth.Workmonth;
-import com.nevesDev.ControleDeFuncionarios.repository.employeeRepository.EmployeeRepository;
 import com.nevesDev.ControleDeFuncionarios.repository.workhourRepository.WorkhourRepository;
 import com.nevesDev.ControleDeFuncionarios.repository.workmonthRepository.WorkmonthRepository;
 import com.nevesDev.ControleDeFuncionarios.service.employeeService.EmployeeService;
@@ -51,14 +50,14 @@ public class WorkhourService {
         List<Workhour> hours = repository.findAllByEmployeeId(id);
         for(Workhour h : hours) {
             if(h.getWorkDay().getMonth().toString().equals(month)) {
-                if(!h.getItsHolliday()) {
+                if(!h.getItsHoliday()) {
                     normalHour += ChronoUnit.HOURS.between(h.getEntry(), h.getBreakInit());
                     normalHour += ChronoUnit.HOURS.between(h.getBreakEnd(), h.getLeave());
                     if(h.getStartExtra() != null && h.getEndExtra() != null) {
                         hour50percent += ChronoUnit.HOURS.between(h.getStartExtra(), h.getEndExtra());
                     }
                 }
-                if(h.getItsHolliday()) {
+                if(h.getItsHoliday()) {
                     hour100percent += ChronoUnit.HOURS.between(h.getEntry(), h.getBreakInit());
                     hour100percent += ChronoUnit.HOURS.between(h.getBreakEnd(), h.getLeave());
                 }
@@ -80,14 +79,14 @@ public class WorkhourService {
             List<Workhour> hours = repository.findAllByEmployeeId(e.getId());
             for(Workhour h : hours) {
                 if(h.getWorkDay().getMonth().toString().equals(month)) {
-                    if(!h.getItsHolliday()) {
+                    if(!h.getItsHoliday()) {
                         normalHour += ChronoUnit.HOURS.between(h.getEntry(), h.getBreakInit());
                         normalHour += ChronoUnit.HOURS.between(h.getBreakEnd(), h.getLeave());
                         if(h.getStartExtra() != null && h.getEndExtra() != null) {
                             hour50percent += ChronoUnit.HOURS.between(h.getStartExtra(), h.getEndExtra());
                         }
                     }
-                    if(h.getItsHolliday()) {
+                    if(h.getItsHoliday()) {
                         hour100percent += ChronoUnit.HOURS.between(h.getEntry(), h.getBreakInit());
                         hour100percent += ChronoUnit.HOURS.between(h.getBreakEnd(), h.getLeave());
                     }
@@ -109,7 +108,7 @@ public class WorkhourService {
         workhour.setBreakEnd(dto.breakEnd());
         workhour.setStartExtra(dto.startExtra());
         workhour.setEndExtra(dto.endExtra());
-        workhour.setItsHolliday(dto.itsHolliday());
+        workhour.setItsHoliday(dto.itsHoliday());
         return workhour;
     }
     public void delete(UUID id) {

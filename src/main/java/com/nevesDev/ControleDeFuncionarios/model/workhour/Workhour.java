@@ -2,7 +2,6 @@ package com.nevesDev.ControleDeFuncionarios.model.workhour;
 
 import com.nevesDev.ControleDeFuncionarios.model.employee.Employee;
 import jakarta.persistence.*;
-import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -29,7 +28,7 @@ public class Workhour {
     private LocalTime startExtra;
     private LocalTime endExtra;
     @Column(nullable = false)
-    private Boolean itsHolliday;
+    private Boolean itsHoliday;
 
     @Column(nullable = false)
     private Boolean missing;
@@ -39,7 +38,7 @@ public class Workhour {
 
     public Workhour(){}
 
-    public Workhour(UUID id, LocalDate workDay, LocalTime entry, LocalTime leave, LocalTime breakInit, LocalTime breakEnd, LocalTime startExtra, LocalTime endExtra, Boolean itsHolliday, Boolean missing, Employee employee) {
+    public Workhour(UUID id, LocalDate workDay, LocalTime entry, LocalTime leave, LocalTime breakInit, LocalTime breakEnd, LocalTime startExtra, LocalTime endExtra, Boolean itsHoliday, Boolean missing, Employee employee) {
         this.id = id;
         this.workDay = workDay;
         this.entry = entry;
@@ -48,7 +47,7 @@ public class Workhour {
         this.breakEnd = breakEnd;
         this.startExtra = startExtra;
         this.endExtra = endExtra;
-        this.itsHolliday = itsHolliday;
+        this.itsHoliday = itsHoliday;
         this.missing = missing;
         this.employee = employee;
     }
@@ -117,12 +116,12 @@ public class Workhour {
         this.endExtra = endExtra;
     }
 
-    public Boolean getItsHolliday() {
-        return itsHolliday;
+    public Boolean getItsHoliday() {
+        return itsHoliday;
     }
 
-    public void setItsHolliday(Boolean itsHolliday) {
-        this.itsHolliday = itsHolliday;
+    public void setItsHoliday(Boolean itsHoliday) {
+        this.itsHoliday = itsHoliday;
     }
 
     public Boolean getMissing() {
