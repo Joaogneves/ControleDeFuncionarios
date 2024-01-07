@@ -31,12 +31,15 @@ public class Workhour {
     @Column(nullable = false)
     private Boolean itsHolliday;
 
+    @Column(nullable = false)
+    private Boolean missing;
+
     @ManyToOne
     private Employee employee;
 
     public Workhour(){}
 
-    public Workhour(UUID id, LocalDate workDay, LocalTime entry, LocalTime leave, LocalTime breakInit, LocalTime breakEnd, LocalTime startExtra, LocalTime endExtra, Boolean itsHolliday, Employee employee) {
+    public Workhour(UUID id, LocalDate workDay, LocalTime entry, LocalTime leave, LocalTime breakInit, LocalTime breakEnd, LocalTime startExtra, LocalTime endExtra, Boolean itsHolliday, Boolean missing, Employee employee) {
         this.id = id;
         this.workDay = workDay;
         this.entry = entry;
@@ -46,6 +49,7 @@ public class Workhour {
         this.startExtra = startExtra;
         this.endExtra = endExtra;
         this.itsHolliday = itsHolliday;
+        this.missing = missing;
         this.employee = employee;
     }
 
@@ -119,6 +123,14 @@ public class Workhour {
 
     public void setItsHolliday(Boolean itsHolliday) {
         this.itsHolliday = itsHolliday;
+    }
+
+    public Boolean getMissing() {
+        return missing;
+    }
+
+    public void setMissing(Boolean missing) {
+        this.missing = missing;
     }
 
     public Employee getEmployee() {
