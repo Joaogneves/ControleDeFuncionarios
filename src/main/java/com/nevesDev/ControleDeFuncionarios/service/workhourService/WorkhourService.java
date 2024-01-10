@@ -51,21 +51,21 @@ public class WorkhourService {
         for(Workhour h : hours) {
             if(h.getWorkDay().getMonth().toString().equals(month)) {
                 if(!h.getItsHoliday()) {
-                    normalHour += ChronoUnit.HOURS.between(h.getEntry(), h.getBreakInit());
-                    normalHour += ChronoUnit.HOURS.between(h.getBreakEnd(), h.getLeave());
+                    normalHour += ChronoUnit.MINUTES.between(h.getEntry(), h.getBreakInit());
+                    normalHour += ChronoUnit.MINUTES.between(h.getBreakEnd(), h.getLeave());
                     if(h.getStartExtra() != null && h.getEndExtra() != null) {
-                        hour50percent += ChronoUnit.HOURS.between(h.getStartExtra(), h.getEndExtra());
+                        hour50percent += ChronoUnit.MINUTES.between(h.getStartExtra(), h.getEndExtra());
                     }
                 }
                 if(h.getItsHoliday()) {
-                    hour100percent += ChronoUnit.HOURS.between(h.getEntry(), h.getBreakInit());
-                    hour100percent += ChronoUnit.HOURS.between(h.getBreakEnd(), h.getLeave());
+                    hour100percent += ChronoUnit.MINUTES.between(h.getEntry(), h.getBreakInit());
+                    hour100percent += ChronoUnit.MINUTES.between(h.getBreakEnd(), h.getLeave());
                 }
             }
         }
         Employee employee = service.getById(id);
         Workmonth workmonth = new Workmonth(normalHour, hour50percent, hour100percent, employee);
-        workmonthRepository.save(workmonth);
+        //workmonthRepository.save(workmonth);
         return workmonth;
     }
 
@@ -80,21 +80,21 @@ public class WorkhourService {
             for(Workhour h : hours) {
                 if(h.getWorkDay().getMonth().toString().equals(month)) {
                     if(!h.getItsHoliday()) {
-                        normalHour += ChronoUnit.HOURS.between(h.getEntry(), h.getBreakInit());
-                        normalHour += ChronoUnit.HOURS.between(h.getBreakEnd(), h.getLeave());
+                        normalHour += ChronoUnit.MINUTES.between(h.getEntry(), h.getBreakInit());
+                        normalHour += ChronoUnit.MINUTES.between(h.getBreakEnd(), h.getLeave());
                         if(h.getStartExtra() != null && h.getEndExtra() != null) {
-                            hour50percent += ChronoUnit.HOURS.between(h.getStartExtra(), h.getEndExtra());
+                            hour50percent += ChronoUnit.MINUTES.between(h.getStartExtra(), h.getEndExtra());
                         }
                     }
                     if(h.getItsHoliday()) {
-                        hour100percent += ChronoUnit.HOURS.between(h.getEntry(), h.getBreakInit());
-                        hour100percent += ChronoUnit.HOURS.between(h.getBreakEnd(), h.getLeave());
+                        hour100percent += ChronoUnit.MINUTES.between(h.getEntry(), h.getBreakInit());
+                        hour100percent += ChronoUnit.MINUTES.between(h.getBreakEnd(), h.getLeave());
                     }
                 }
             }
             Workmonth workmonth = new Workmonth(normalHour, hour50percent, hour100percent, e);
             workmonths.add(workmonth);
-            workmonthRepository.save(workmonth);
+            //workmonthRepository.save(workmonth);
         }
         return workmonths;
     }
