@@ -28,17 +28,22 @@ public class Workhour {
     private LocalTime startExtra;
     private LocalTime endExtra;
     @Column(nullable = false)
-    private Boolean itsHoliday;
+    private Boolean isHoliday;
 
     @Column(nullable = false)
     private Boolean missing;
+
+    @Column(nullable = false)
+    private Boolean saturday;
+    @Column(nullable = false)
+    private Boolean sunday;
 
     @ManyToOne
     private Employee employee;
 
     public Workhour(){}
 
-    public Workhour(UUID id, LocalDate workDay, LocalTime entry, LocalTime leave, LocalTime breakInit, LocalTime breakEnd, LocalTime startExtra, LocalTime endExtra, Boolean itsHoliday, Boolean missing, Employee employee) {
+    public Workhour(UUID id, LocalDate workDay, LocalTime entry, LocalTime leave, LocalTime breakInit, LocalTime breakEnd, LocalTime startExtra, LocalTime endExtra, Boolean isHoliday, Boolean missing, Boolean saturday, Boolean sunday, Employee employee) {
         this.id = id;
         this.workDay = workDay;
         this.entry = entry;
@@ -47,8 +52,10 @@ public class Workhour {
         this.breakEnd = breakEnd;
         this.startExtra = startExtra;
         this.endExtra = endExtra;
-        this.itsHoliday = itsHoliday;
+        this.isHoliday = isHoliday;
         this.missing = missing;
+        this.saturday = saturday;
+        this.sunday = sunday;
         this.employee = employee;
     }
 
@@ -116,12 +123,12 @@ public class Workhour {
         this.endExtra = endExtra;
     }
 
-    public Boolean getItsHoliday() {
-        return itsHoliday;
+    public Boolean getIsHoliday() {
+        return isHoliday;
     }
 
-    public void setItsHoliday(Boolean itsHoliday) {
-        this.itsHoliday = itsHoliday;
+    public void setIsHoliday(Boolean isHoliday) {
+        this.isHoliday = isHoliday;
     }
 
     public Boolean getMissing() {
@@ -130,6 +137,26 @@ public class Workhour {
 
     public void setMissing(Boolean missing) {
         this.missing = missing;
+    }
+
+    public void setHoliday(Boolean holiday) {
+        isHoliday = holiday;
+    }
+
+    public Boolean getSaturday() {
+        return saturday;
+    }
+
+    public void setSaturday(Boolean saturday) {
+        this.saturday = saturday;
+    }
+
+    public Boolean getSunday() {
+        return sunday;
+    }
+
+    public void setSunday(Boolean sunday) {
+        this.sunday = sunday;
     }
 
     public Employee getEmployee() {

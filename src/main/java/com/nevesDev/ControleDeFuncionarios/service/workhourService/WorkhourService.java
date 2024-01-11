@@ -50,14 +50,14 @@ public class WorkhourService {
         List<Workhour> hours = repository.findAllByEmployeeId(id);
         for(Workhour h : hours) {
             if(h.getWorkDay().getMonth().toString().equals(month)) {
-                if(!h.getItsHoliday()) {
+                if(!h.getIsHoliday()) {
                     normalHour += ChronoUnit.MINUTES.between(h.getEntry(), h.getBreakInit());
                     normalHour += ChronoUnit.MINUTES.between(h.getBreakEnd(), h.getLeave());
                     if(h.getStartExtra() != null && h.getEndExtra() != null) {
                         hour50percent += ChronoUnit.MINUTES.between(h.getStartExtra(), h.getEndExtra());
                     }
                 }
-                if(h.getItsHoliday()) {
+                if(h.getIsHoliday()) {
                     hour100percent += ChronoUnit.MINUTES.between(h.getEntry(), h.getBreakInit());
                     hour100percent += ChronoUnit.MINUTES.between(h.getBreakEnd(), h.getLeave());
                 }
@@ -79,14 +79,14 @@ public class WorkhourService {
             List<Workhour> hours = repository.findAllByEmployeeId(e.getId());
             for(Workhour h : hours) {
                 if(h.getWorkDay().getMonth().toString().equals(month)) {
-                    if(!h.getItsHoliday()) {
+                    if(!h.getIsHoliday()) {
                         normalHour += ChronoUnit.MINUTES.between(h.getEntry(), h.getBreakInit());
                         normalHour += ChronoUnit.MINUTES.between(h.getBreakEnd(), h.getLeave());
                         if(h.getStartExtra() != null && h.getEndExtra() != null) {
                             hour50percent += ChronoUnit.MINUTES.between(h.getStartExtra(), h.getEndExtra());
                         }
                     }
-                    if(h.getItsHoliday()) {
+                    if(h.getIsHoliday()) {
                         hour100percent += ChronoUnit.MINUTES.between(h.getEntry(), h.getBreakInit());
                         hour100percent += ChronoUnit.MINUTES.between(h.getBreakEnd(), h.getLeave());
                     }
@@ -108,7 +108,7 @@ public class WorkhourService {
         workhour.setBreakEnd(dto.breakEnd());
         workhour.setStartExtra(dto.startExtra());
         workhour.setEndExtra(dto.endExtra());
-        workhour.setItsHoliday(dto.itsHoliday());
+        workhour.setIsHoliday(dto.itsHoliday());
         return workhour;
     }
     public void delete(UUID id) {
