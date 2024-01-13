@@ -24,6 +24,7 @@ public class WorkhourController {
 
     @PostMapping
     public ResponseEntity<Workhour> save(@RequestBody Workhour workhour, @RequestParam UUID employeeId) {
+        System.out.println(workhour);
         service.save(workhour, employeeId);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(workhour.getId()).toUri();
         return ResponseEntity.created(uri).body(workhour);

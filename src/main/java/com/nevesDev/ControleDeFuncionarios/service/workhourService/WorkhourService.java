@@ -49,6 +49,7 @@ public class WorkhourService {
         long hour50percent = 0;
         List<Workhour> hours = repository.findAllByEmployeeId(id);
         for(Workhour h : hours) {
+            /*
             if(h.getWorkDay().getMonth().toString().equals(month)) {
                 if(!h.getIsHoliday()) {
                     normalHour += ChronoUnit.MINUTES.between(h.getEntry(), h.getBreakInit());
@@ -61,7 +62,7 @@ public class WorkhourService {
                     hour100percent += ChronoUnit.MINUTES.between(h.getEntry(), h.getBreakInit());
                     hour100percent += ChronoUnit.MINUTES.between(h.getBreakEnd(), h.getLeave());
                 }
-            }
+            } */
         }
         Employee employee = service.getById(id);
         Workmonth workmonth = new Workmonth(normalHour, hour50percent, hour100percent, employee);
@@ -79,6 +80,7 @@ public class WorkhourService {
             List<Workhour> hours = repository.findAllByEmployeeId(e.getId());
             for(Workhour h : hours) {
                 if(h.getWorkDay().getMonth().toString().equals(month)) {
+                    /*
                     if(!h.getIsHoliday()) {
                         normalHour += ChronoUnit.MINUTES.between(h.getEntry(), h.getBreakInit());
                         normalHour += ChronoUnit.MINUTES.between(h.getBreakEnd(), h.getLeave());
@@ -89,7 +91,7 @@ public class WorkhourService {
                     if(h.getIsHoliday()) {
                         hour100percent += ChronoUnit.MINUTES.between(h.getEntry(), h.getBreakInit());
                         hour100percent += ChronoUnit.MINUTES.between(h.getBreakEnd(), h.getLeave());
-                    }
+                    } */
                 }
             }
             Workmonth workmonth = new Workmonth(normalHour, hour50percent, hour100percent, e);
@@ -108,7 +110,7 @@ public class WorkhourService {
         workhour.setBreakEnd(dto.breakEnd());
         workhour.setStartExtra(dto.startExtra());
         workhour.setEndExtra(dto.endExtra());
-        workhour.setIsHoliday(dto.itsHoliday());
+        //workhour.setIsHoliday(dto.itsHoliday());
         return workhour;
     }
     public void delete(UUID id) {
