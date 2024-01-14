@@ -49,24 +49,49 @@ public class WorkhourService {
         long hour50percent = 0;
         List<Workhour> hours = repository.findAllByEmployeeId(id);
         for(Workhour h : hours) {
-            /*
             if(h.getWorkDay().getMonth().toString().equals(month)) {
-                if(!h.getIsHoliday()) {
+                if(getStatus(h, "HORAEXTRANORMAL")) {
                     normalHour += ChronoUnit.MINUTES.between(h.getEntry(), h.getBreakInit());
                     normalHour += ChronoUnit.MINUTES.between(h.getBreakEnd(), h.getLeave());
-                    if(h.getStartExtra() != null && h.getEndExtra() != null) {
-                        hour50percent += ChronoUnit.MINUTES.between(h.getStartExtra(), h.getEndExtra());
-                    }
+                    hour50percent += ChronoUnit.MINUTES.between(h.getStartExtra(), h.getEndExtra());
                 }
-                if(h.getIsHoliday()) {
+                if(getStatus(h, "NORMAL")) {
+                    normalHour += ChronoUnit.MINUTES.between(h.getEntry(), h.getBreakInit());
+                    normalHour += ChronoUnit.MINUTES.between(h.getBreakEnd(), h.getLeave());
+                }
+                if(getStatus(h, "HORAEXTRA100")) {
                     hour100percent += ChronoUnit.MINUTES.between(h.getEntry(), h.getBreakInit());
                     hour100percent += ChronoUnit.MINUTES.between(h.getBreakEnd(), h.getLeave());
                 }
-            } */
+                if(getStatus(h, "SABADO50")) {
+                    hour50percent += ChronoUnit.MINUTES.between(h.getEntry(), h.getBreakInit());
+                    hour50percent += ChronoUnit.MINUTES.between(h.getBreakEnd(), h.getLeave());
+                }
+                if(getStatus(h, "FALTA")) {
+                    normalHour += ChronoUnit.MINUTES.between(h.getEntry(), h.getBreakInit());
+                    normalHour += ChronoUnit.MINUTES.between(h.getBreakEnd(), h.getLeave());
+                }
+                if(getStatus(h, "SABADO")) {
+                    normalHour += ChronoUnit.MINUTES.between(h.getEntry(), h.getBreakInit());
+                    normalHour += ChronoUnit.MINUTES.between(h.getBreakEnd(), h.getLeave());
+                }
+                if(getStatus(h, "DOMINGO")) {
+                    normalHour += ChronoUnit.MINUTES.between(h.getEntry(), h.getBreakInit());
+                    normalHour += ChronoUnit.MINUTES.between(h.getBreakEnd(), h.getLeave());
+                }
+                if(getStatus(h, "FERIADO")) {
+                    normalHour += ChronoUnit.MINUTES.between(h.getEntry(), h.getBreakInit());
+                    normalHour += ChronoUnit.MINUTES.between(h.getBreakEnd(), h.getLeave());
+                }
+                if(getStatus(h, "FOLGA")) {
+                    normalHour += ChronoUnit.MINUTES.between(h.getEntry(), h.getBreakInit());
+                    normalHour += ChronoUnit.MINUTES.between(h.getBreakEnd(), h.getLeave());
+                }
+            }
         }
         Employee employee = service.getById(id);
-        Workmonth workmonth = new Workmonth(normalHour, hour50percent, hour100percent, employee);
-        //workmonthRepository.save(workmonth);
+        Workmonth workmonth = new Workmonth(normalHour / 60, hour50percent / 60, hour100percent / 60, normalHour % 60, hour50percent % 60, hour100percent % 60, employee);
+        workmonthRepository.save(workmonth);
         return workmonth;
     }
 
@@ -74,29 +99,9 @@ public class WorkhourService {
         List<Employee> employees = service.getAll();
         List<Workmonth> workmonths = new ArrayList<>();
         for(Employee e : employees) {
-            long normalHour = 0;
-            long hour100percent = 0;
-            long hour50percent = 0;
-            List<Workhour> hours = repository.findAllByEmployeeId(e.getId());
-            for(Workhour h : hours) {
-                if(h.getWorkDay().getMonth().toString().equals(month)) {
-                    /*
-                    if(!h.getIsHoliday()) {
-                        normalHour += ChronoUnit.MINUTES.between(h.getEntry(), h.getBreakInit());
-                        normalHour += ChronoUnit.MINUTES.between(h.getBreakEnd(), h.getLeave());
-                        if(h.getStartExtra() != null && h.getEndExtra() != null) {
-                            hour50percent += ChronoUnit.MINUTES.between(h.getStartExtra(), h.getEndExtra());
-                        }
-                    }
-                    if(h.getIsHoliday()) {
-                        hour100percent += ChronoUnit.MINUTES.between(h.getEntry(), h.getBreakInit());
-                        hour100percent += ChronoUnit.MINUTES.between(h.getBreakEnd(), h.getLeave());
-                    } */
-                }
-            }
-            Workmonth workmonth = new Workmonth(normalHour, hour50percent, hour100percent, e);
+            Workmonth workmonth = getHours(e.getId(), month);
             workmonths.add(workmonth);
-            //workmonthRepository.save(workmonth);
+            workmonthRepository.save(workmonth);
         }
         return workmonths;
     }
@@ -117,4 +122,7 @@ public class WorkhourService {
         repository.deleteById(id);
     }
 
+    private boolean getStatus(Workhour h, String status) {
+        return h.getWorkhourStatus().toString().equals(status);
+    }
 }

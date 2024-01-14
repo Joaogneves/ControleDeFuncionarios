@@ -16,16 +16,33 @@ public class Workmonth {
     long normalHour;
     long extraHour50;
     long extraHour100;
+    long normalMinutes;
+    long extraMinutes50;
+    long extraMinutes100;
 
     @ManyToOne
     private Employee employee;
 
     public Workmonth() {}
 
-    public Workmonth(long normalHour, long extraHour50, long extraHour100, Employee employee) {
+    public Workmonth(UUID id, long normalHour, long extraHour50, long extraHour100, long normalMinutes, long extraMinutes50, long extraMinutes100, Employee employee) {
+        this.id = id;
         this.normalHour = normalHour;
         this.extraHour50 = extraHour50;
         this.extraHour100 = extraHour100;
+        this.normalMinutes = normalMinutes;
+        this.extraMinutes50 = extraMinutes50;
+        this.extraMinutes100 = extraMinutes100;
+        this.employee = employee;
+    }
+
+    public Workmonth(long normalHour, long extraHour50, long extraHour100, long normalMinutes, long extraMinutes50, long extraMinutes100, Employee employee) {
+        this.normalHour = normalHour;
+        this.extraHour50 = extraHour50;
+        this.extraHour100 = extraHour100;
+        this.normalMinutes = normalMinutes;
+        this.extraMinutes50 = extraMinutes50;
+        this.extraMinutes100 = extraMinutes100;
         this.employee = employee;
     }
 
@@ -59,6 +76,30 @@ public class Workmonth {
 
     public void setExtraHour100(long extraHour100) {
         this.extraHour100 = extraHour100;
+    }
+
+    public long getNormalMinutes() {
+        return normalMinutes;
+    }
+
+    public void setNormalMinutes(long normalMinutes) {
+        this.normalMinutes = normalMinutes;
+    }
+
+    public long getExtraMinutes50() {
+        return extraMinutes50;
+    }
+
+    public void setExtraMinutes50(long extraMinutes50) {
+        this.extraMinutes50 = extraMinutes50;
+    }
+
+    public long getExtraMinutes100() {
+        return extraMinutes100;
+    }
+
+    public void setExtraMinutes100(long extraMinutes100) {
+        this.extraMinutes100 = extraMinutes100;
     }
 
     public Employee getEmployee() {
