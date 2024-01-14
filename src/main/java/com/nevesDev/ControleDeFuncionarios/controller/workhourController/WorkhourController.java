@@ -36,7 +36,7 @@ public class WorkhourController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Workhour> getAll(@PathVariable UUID id) {
+    public ResponseEntity<Workhour> getById(@PathVariable UUID id) {
         return ResponseEntity.ok().body(service.getById(id));
     }
 

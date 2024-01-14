@@ -115,7 +115,8 @@ public class WorkhourService {
         workhour.setBreakEnd(dto.breakEnd());
         workhour.setStartExtra(dto.startExtra());
         workhour.setEndExtra(dto.endExtra());
-        //workhour.setIsHoliday(dto.itsHoliday());
+        workhour.setWorkhourStatus(dto.workhourStatus());
+        repository.save(workhour);
         return workhour;
     }
     public void delete(UUID id) {
