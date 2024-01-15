@@ -13,6 +13,8 @@ public class Workmonth {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    private String month;
+
     long normalHour;
     long extraHour50;
     long extraHour100;
@@ -25,8 +27,9 @@ public class Workmonth {
 
     public Workmonth() {}
 
-    public Workmonth(UUID id, long normalHour, long extraHour50, long extraHour100, long normalMinutes, long extraMinutes50, long extraMinutes100, Employee employee) {
+    public Workmonth(UUID id, String month, long normalHour, long extraHour50, long extraHour100, long normalMinutes, long extraMinutes50, long extraMinutes100, Employee employee) {
         this.id = id;
+        this.month = month;
         this.normalHour = normalHour;
         this.extraHour50 = extraHour50;
         this.extraHour100 = extraHour100;
@@ -36,7 +39,8 @@ public class Workmonth {
         this.employee = employee;
     }
 
-    public Workmonth(long normalHour, long extraHour50, long extraHour100, long normalMinutes, long extraMinutes50, long extraMinutes100, Employee employee) {
+    public Workmonth(String month, long normalHour, long extraHour50, long extraHour100, long normalMinutes, long extraMinutes50, long extraMinutes100, Employee employee) {
+        this.month = month;
         this.normalHour = normalHour;
         this.extraHour50 = extraHour50;
         this.extraHour100 = extraHour100;
@@ -52,6 +56,14 @@ public class Workmonth {
 
     public void setId(UUID id) {
         this.id = id;
+    }
+
+    public String getMonth() {
+        return month;
+    }
+
+    public void setMonth(String month) {
+        this.month = month;
     }
 
     public long getNormalHour() {

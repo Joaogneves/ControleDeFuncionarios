@@ -48,49 +48,50 @@ public class WorkhourService {
         long hour100percent = 0;
         long hour50percent = 0;
         List<Workhour> hours = repository.findAllByEmployeeId(id);
-        for(Workhour h : hours) {
-            if(h.getWorkDay().getMonth().toString().equals(month)) {
-                if(getStatus(h, "HORAEXTRANORMAL")) {
+        for (Workhour h : hours) {
+            if (h.getWorkDay().getMonth().toString().equals(month)) {
+                if (getStatus(h, "HORAEXTRANORMAL")) {
                     normalHour += ChronoUnit.MINUTES.between(h.getEntry(), h.getBreakInit());
                     normalHour += ChronoUnit.MINUTES.between(h.getBreakEnd(), h.getLeave());
                     hour50percent += ChronoUnit.MINUTES.between(h.getStartExtra(), h.getEndExtra());
                 }
-                if(getStatus(h, "NORMAL")) {
+                if (getStatus(h, "NORMAL")) {
                     normalHour += ChronoUnit.MINUTES.between(h.getEntry(), h.getBreakInit());
                     normalHour += ChronoUnit.MINUTES.between(h.getBreakEnd(), h.getLeave());
                 }
-                if(getStatus(h, "HORAEXTRA100")) {
+                if (getStatus(h, "HORAEXTRA100")) {
                     hour100percent += ChronoUnit.MINUTES.between(h.getEntry(), h.getBreakInit());
                     hour100percent += ChronoUnit.MINUTES.between(h.getBreakEnd(), h.getLeave());
                 }
-                if(getStatus(h, "SABADO50")) {
+                if (getStatus(h, "SABADO50")) {
                     hour50percent += ChronoUnit.MINUTES.between(h.getEntry(), h.getBreakInit());
                     hour50percent += ChronoUnit.MINUTES.between(h.getBreakEnd(), h.getLeave());
                 }
-                if(getStatus(h, "FALTA")) {
+                if (getStatus(h, "FALTA")) {
                     normalHour += ChronoUnit.MINUTES.between(h.getEntry(), h.getBreakInit());
                     normalHour += ChronoUnit.MINUTES.between(h.getBreakEnd(), h.getLeave());
                 }
-                if(getStatus(h, "SABADO")) {
+                if (getStatus(h, "SABADO")) {
                     normalHour += ChronoUnit.MINUTES.between(h.getEntry(), h.getBreakInit());
                     normalHour += ChronoUnit.MINUTES.between(h.getBreakEnd(), h.getLeave());
                 }
-                if(getStatus(h, "DOMINGO")) {
+                if (getStatus(h, "DOMINGO")) {
                     normalHour += ChronoUnit.MINUTES.between(h.getEntry(), h.getBreakInit());
                     normalHour += ChronoUnit.MINUTES.between(h.getBreakEnd(), h.getLeave());
                 }
-                if(getStatus(h, "FERIADO")) {
+                if (getStatus(h, "FERIADO")) {
                     normalHour += ChronoUnit.MINUTES.between(h.getEntry(), h.getBreakInit());
                     normalHour += ChronoUnit.MINUTES.between(h.getBreakEnd(), h.getLeave());
                 }
-                if(getStatus(h, "FOLGA")) {
+                if (getStatus(h, "FOLGA")) {
                     normalHour += ChronoUnit.MINUTES.between(h.getEntry(), h.getBreakInit());
                     normalHour += ChronoUnit.MINUTES.between(h.getBreakEnd(), h.getLeave());
                 }
             }
         }
         Employee employee = service.getById(id);
-        Workmonth workmonth = new Workmonth(normalHour / 60, hour50percent / 60, hour100percent / 60, normalHour % 60, hour50percent % 60, hour100percent % 60, employee);
+        String monthPt = translateMonth(month);
+        Workmonth workmonth = new Workmonth(monthPt, normalHour / 60, hour50percent / 60, hour100percent / 60, normalHour % 60, hour50percent % 60, hour100percent % 60, employee);
         workmonthRepository.save(workmonth);
         return workmonth;
     }
@@ -98,7 +99,7 @@ public class WorkhourService {
     public List<Workmonth> getAllHours(String month) {
         List<Employee> employees = service.getAll();
         List<Workmonth> workmonths = new ArrayList<>();
-        for(Employee e : employees) {
+        for (Employee e : employees) {
             Workmonth workmonth = getHours(e.getId(), month);
             workmonths.add(workmonth);
             workmonthRepository.save(workmonth);
@@ -119,11 +120,54 @@ public class WorkhourService {
         repository.save(workhour);
         return workhour;
     }
+
     public void delete(UUID id) {
         repository.deleteById(id);
     }
 
     private boolean getStatus(Workhour h, String status) {
         return h.getWorkhourStatus().toString().equals(status);
+    }
+
+    private String translateMonth(String month) {
+        switch (month) {
+            case "JANUARY": {
+                return "Janeiro";
+            }
+            case "FEBRUARY": {
+                return "Fevereiro";
+            }
+            case "MARCH": {
+                return "Março";
+            }
+            case "APRIL": {
+                return "Abril";
+            }
+            case "MAY": {
+                return "Maio";
+            }
+            case "JUNE": {
+                return "Junho";
+            }
+            case "JULY": {
+                return "Julho";
+            }
+            case "AUGUST": {
+                return "Agosto";
+            }
+            case "SEPTEMBER": {
+                return "Setembro";
+            }
+            case "OCTOBER": {
+                return "Outubro";
+            }
+            case "NOVEMBER": {
+                return "Novembro";
+            }
+            case "DECEMBER": {
+                return "Dezembro";
+            }
+        }
+        return "";
     }
 }
