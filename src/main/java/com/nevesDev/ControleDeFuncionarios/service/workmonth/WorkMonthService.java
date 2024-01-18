@@ -38,5 +38,4 @@ public class WorkMonthService {
         repository.deleteById(id);
     }
 
-
 }
