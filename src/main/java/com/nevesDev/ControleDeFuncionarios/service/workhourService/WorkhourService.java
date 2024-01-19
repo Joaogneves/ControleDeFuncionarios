@@ -1,5 +1,8 @@
 package com.nevesDev.ControleDeFuncionarios.service.workhourService;
 
+import com.lowagie.text.*;
+import com.lowagie.text.pdf.BaseFont;
+import com.lowagie.text.pdf.PdfWriter;
 import com.nevesDev.ControleDeFuncionarios.model.employee.Employee;
 import com.nevesDev.ControleDeFuncionarios.model.workhour.Workhour;
 import com.nevesDev.ControleDeFuncionarios.model.workhour.WorkhourDto;
@@ -10,6 +13,8 @@ import com.nevesDev.ControleDeFuncionarios.service.employeeService.EmployeeServi
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.awt.*;
+import java.io.FileOutputStream;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
@@ -169,5 +174,52 @@ public class WorkhourService {
             }
         }
         return "";
+    }
+
+    public void createPdf(UUID id) {
+        Employee employee = service.getById(id);
+        Document document = new Document(PageSize.A4, 5, 5, 20, 20);
+        try
+        {
+            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(employee.getFirstName() + employee.getLastName() +".pdf"));
+
+            BaseFont bf_helv = BaseFont.createFont(BaseFont.HELVETICA, "Cp1252", false);
+            document.open();
+            Table table = new Table(9);
+            table.setBorderWidth(1);
+            table.setBorderColor(new Color(0, 0, 0));
+            table.setPadding(5);
+            table.setSpacing(5);
+            Cell c = new Cell();
+            c.setHeader(true);
+            c.setColspan(9);
+            c.add(new Paragraph("Nome: " + employee.getFirstName() + " " + employee.getLastName()));
+            c.add(new Paragraph("Nome: " + employee.getFirstName() + " " + employee.getLastName()));
+            table.addCell(c);
+            table.endHeaders();
+            c = new Cell("example cell with rowspan 2 and red border");
+            c.setRowspan(2);
+            c.setBorderColor(new Color(0, 0, 0));
+            table.addCell(c);
+            table.addCell("1.1");
+            table.addCell("2.1");
+            table.addCell("1.2");
+            table.addCell("2.2");
+            c = new Cell("align center");
+            c.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(c);
+            c = new Cell("big cell");
+            c.setRowspan(2);
+            c.setColspan(2);
+            table.addCell(c);
+            c = new Cell("align right");
+            c.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            table.addCell(c);
+            document.add(table);
+            document.close();
+
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+        }
     }
 }

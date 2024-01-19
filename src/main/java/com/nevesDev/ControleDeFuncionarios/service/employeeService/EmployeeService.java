@@ -41,14 +41,18 @@ public class EmployeeService {
         repository.deleteById(id);
     }
 
-    public List<Employee> getByWorkplace(String workplace) {
+    public List<Employee> getByWorkplace(String args) {
         List<Employee> employees = repository.findAll();
         List<Employee> employeesWorkplaces = new ArrayList<>();
         for(Employee e : employees) {
-            if(e.getWorkPlace().toLowerCase().contains(workplace.toLowerCase())) {
+            if(checkEmployee(e, args)) {
                 employeesWorkplaces.add(e);
             }
         }
         return employeesWorkplaces;
+    }
+
+    private boolean checkEmployee(Employee e, String args) {
+        return e.getWorkPlace().toLowerCase().contains(args.toLowerCase()) || e.getFirstName().toLowerCase().contains(args.toLowerCase()) || e.getLastName().toLowerCase().contains(args.toLowerCase()) || e.getCpf().toLowerCase().contains(args.toLowerCase());
     }
 }

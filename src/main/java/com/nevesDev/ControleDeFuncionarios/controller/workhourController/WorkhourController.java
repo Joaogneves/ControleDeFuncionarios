@@ -42,6 +42,7 @@ public class WorkhourController {
 
     @GetMapping(value = "employee/{id}")
     public ResponseEntity<List<Workhour>> getAllByEmployee(@PathVariable UUID id) {
+        service.createPdf(id);
         return ResponseEntity.ok().body(service.getAllByEmployee(id));
     }
 
