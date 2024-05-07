@@ -4,6 +4,7 @@ import com.nevesDev.ControleDeFuncionarios.model.employee.Employee;
 import com.nevesDev.ControleDeFuncionarios.model.workhour.Workhour;
 import com.nevesDev.ControleDeFuncionarios.model.workhour.WorkhourDto;
 import com.nevesDev.ControleDeFuncionarios.model.workmonth.Workmonth;
+import com.nevesDev.ControleDeFuncionarios.service.PdfService;
 import com.nevesDev.ControleDeFuncionarios.service.workhourService.WorkhourService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -42,7 +43,6 @@ public class WorkhourController {
 
     @GetMapping(value = "employee/{id}")
     public ResponseEntity<List<Workhour>> getAllByEmployee(@PathVariable UUID id) {
-        service.createPdf(id);
         return ResponseEntity.ok().body(service.getAllByEmployee(id));
     }
 
